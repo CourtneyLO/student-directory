@@ -5,7 +5,7 @@ def input_students
     # create an empty array
     students = []
     # get the first name
-    name = gets.chomp.capitalize 
+    name = gets.chomp.split(" ").map(&:capitalize).join(" ") 
     puts "Please indicate cohort"
     cohort = gets.chomp.capitalize.to_sym                                       # 7. How can you ask for both the name and the cohort? & How will you convert it to a symbol?
     cohort.empty? ? cohort = :November : cohort                                 # 7. What if one of the values is empty? Can you supply a default value?
@@ -24,7 +24,7 @@ def input_students
         # 9. How can you fix it so that it used singular form when appropriate and plural form otherwise?
         puts students.index({name: name, cohort: cohort, age: age, hobbies: hobbies, country: country, height: height}) > 0 ? "Now we have #{students.count} students" : "Now we have #{students.count} student"
         # get another name from the user 
-        name = gets.chomp.capitalize
+        name = gets.chomp.split(" ").map(&:capitalize).join(' ')
         puts "Please indicate cohort"
         cohort = gets.chomp.capitalize.to_sym                                   # 7. How can you ask for both the name and the cohort? & How will you convert it to a symbol?
         cohort.empty? ? cohort = :November : cohort                             # 7. What if one of the values is empty? Can you supply a default value?
@@ -82,7 +82,7 @@ end
 def while_print(students)
     index = 0 
     while index < students.size 
-        puts "#{students[0 + index][:name]} (#{students[0 + index][:cohort]} cohort)"
+        puts "#{index + 1}. #{students[0 + index][:name]} (#{students[0 + index][:cohort]} cohort)"
     index += 1   
     end 
 end 
@@ -129,12 +129,12 @@ def cohort(students)
     cohort_list = []
     students.map {|student| cohort_list << student[:cohort]}
     if cohort_list.size <= 2
-        cohort_options = cohort_list.uniq.join", "
+        cohort_options = cohort_list.uniq.join(" or ")
     else
         last_cohorts = cohort_list.pop(2)
         cohort_joined = cohort_list << last_cohorts.join(" or ")
         cohort_options = cohort_joined.flatten.uniq.join", "
-    end 
+    end
     puts "Which cohort would you like to see: #{cohort_options}?"
     selected_cohort = gets.chomp.capitalize.to_sym 
     
@@ -143,10 +143,6 @@ def cohort(students)
         puts "#{student[:name]}, (#{student[:cohort]} cohort)" if selected_cohort == student[:cohort] 
         end 
 end
-
-# 10) .strip! && .chop && delete!("/n")
-
- 
 
 
 students = input_students 
