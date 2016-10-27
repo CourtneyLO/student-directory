@@ -45,6 +45,11 @@ def specific_letter(students)
     students.select {|student| puts "#{student[:name]} (#{student[:cohort]} cohort)" if student[:name].split("").shift == answer }
 end 
 
+# 3. Modify your program to only print the students whose name is shorter than 12 characters.
+def shorter_12_characters(students)
+    puts "Students with names shorter than 12 characters:"
+    students.each {|student| puts "#{student[:name]} (#{student[:cohort]} cohort)" if student[:name].length < 12 }
+end 
 
 students = input_students 
 # nothing happens until we call these methods 
@@ -53,6 +58,7 @@ print(students)
 print_footer(students)
 numbering_students(students)
 specific_letter(students)
+shorter_12_characters(students)
 
 
     
