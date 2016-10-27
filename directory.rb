@@ -6,16 +6,23 @@ def input_students
     students = []
     # get the first name
     name = gets.chomp.capitalize 
+    puts "Please indicate cohort"
+    cohort = gets.chomp.capitalize.to_sym
+    cohort.empty? ? cohort = :November : cohort
     # while the name is not empty, repeat this code
     while !name.empty? do 
         # add the student hash to the array
-        students << {name: name, cohort: :november}
+        students << {name: name, cohort: cohort}
         puts "Now we have #{students.count} students"
         # get another name from the user 
         name = gets.chomp.capitalize
+        puts "Please indicate cohort"
+        cohort = gets.chomp.capitalize.to_sym
+        cohort.empty? ? cohort = :November : cohort
     end 
     # return the array of students 
-    students 
+     
+    typo(students)
 end 
 
 def print_header
@@ -60,10 +67,30 @@ def while_print(students)
     end 
 end 
 
+def typo(students)
+    
+    index = 0 
+    while index < students.size 
+        puts "#{students[0 + index]}"
+    index += 1   
+    end 
+    
+    puts "Do you wish to change anything?"
+    answer = gets.chomp
+    
+        if answer.include? "y"
+            return input_students
+        elsif answer.include? "n"
+            students
+        else 
+            puts "please type again"
+        end 
+end 
+
 students = input_students 
 # nothing happens until we call these methods 
 print_header
-#print(students)
+print(students)
 print_footer(students)
 numbering_students(students)
 specific_letter(students)
