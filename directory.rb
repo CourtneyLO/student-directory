@@ -26,14 +26,15 @@ def input_students
     typo(students)
 end 
 
-def print_header(students)
-    puts "The students of Villains Academy" if !students.empty? 
-    puts "--------------" if !students.empty? 
-end 
+def print_header(students) 
+        puts "The students of Villians Academy" if !students.empty?
+        puts "-------------" if !students.empty?
+    
+end  
 
 def print(students)
     students.each do |student|
-        puts "#{student[:name]} (#{student[:cohort]} cohort)" if !students.empty? 
+        puts "#{student[:name]} (#{student[:cohort]} cohort)" 
     end 
 end 
 
@@ -88,11 +89,15 @@ def typo(students)
             students
         else 
             puts "please type again"
+            typo(students)
         end 
     else 
-        exit(0)
+       exit(0)
     end 
 end 
+# 12. There are two ways you can prevent the list from printing when no input is given. 1) use if !students.empty? in header and footer or 
+#     2. use if else statment in typo that will exit if no input is given 
+
 
 # 8. Change the way the users are displayed: print them grouped by cohorts.
 def cohort(students)
