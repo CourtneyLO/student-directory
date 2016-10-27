@@ -40,7 +40,7 @@ def input_students
     while !name.empty? do 
         # add student hash to the array
         students << {name: name, cohort: cohort, age: age, hobbies: hobbies, country: country, height: height}
-        puts students.index({name: name, cohort: cohort, age: age, hobbies: hobbies, country: country, height: height}) > 0 ? "Now we have #{students.count} students" : "Now we have #{students.count} student"
+        puts students.index({name: name, cohort: cohort, age: age, hobbies: hobbies, country: country, height: height}) > 1 ? "Now we have #{students.count} students" : "Now we have #{students.count} student"
         # get another name from the user 
         puts "Name"
         name = gets.chomp.capitalize 
