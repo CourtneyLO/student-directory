@@ -13,7 +13,8 @@ def input_students
     while !name.empty? do 
         # add the student hash to the array
         students << {name: name, cohort: cohort}
-        puts "Now we have #{students.count} students"
+        # 9. How can you fix it so that it used singular form when appropriate and plural form otherwise?
+        puts students.index({name: name, cohort: cohort}) > 0 ? "Now we have #{students.count} students" : "Now we have #{students.count} student"
         # get another name from the user 
         name = gets.chomp.capitalize
         puts "Please indicate cohort"
@@ -37,7 +38,8 @@ def print(students)
 end 
 
 def print_footer(students)
-    puts "Overall, we have #{students.count} great students"
+    # 9. How can you fix it so that it used singular form when appropriate and plural form otherwise?
+    puts students.count > 1 ? "Overall, we have #{students.count} great students" : "Overall, we have #{students.count} great student"
 end 
 
 # 1. How can you modify the program to print a number before the name of each student, e.g. "1. Dr. Hannibal Lecter"? 
@@ -102,7 +104,6 @@ def cohort(students)
         puts "#{student[:name]}, (#{student[:cohort]} cohort)" if selected_cohort == student[:cohort] 
         end 
 end
-
 
 students = input_students 
 # nothing happens until we call these methods 
