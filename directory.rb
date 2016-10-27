@@ -9,17 +9,34 @@ def input_students
     puts "Please indicate cohort"
     cohort = gets.chomp.capitalize.to_sym                                       # 7. How can you ask for both the name and the cohort? & How will you convert it to a symbol?
     cohort.empty? ? cohort = :November : cohort                                 # 7. What if one of the values is empty? Can you supply a default value?
+    puts "How old are you?"
+    age = gets.chomp
+    puts "What are your hobbies?"
+    hobbies = gets.chomp 
+    puts "What country are you from?"
+    country = gets.chomp
+    puts "What is you height?"
+    height = gets.chomp 
     # while the name is not empty, repeat this code
     while !name.empty? do 
         # add the student hash to the array
-        students << {name: name, cohort: cohort}
+        students << {name: name, cohort: cohort, age: age, hobbies: hobbies, country: country, height: height}
         # 9. How can you fix it so that it used singular form when appropriate and plural form otherwise?
-        puts students.index({name: name, cohort: cohort}) > 0 ? "Now we have #{students.count} students" : "Now we have #{students.count} student"
+        puts students.index({name: name, cohort: cohort, age: age, hobbies: hobbies, country: country, height: height}) > 1 ? "Now we have #{students.count} students" : "Now we have #{students.count} student"
         # get another name from the user 
         name = gets.chomp.capitalize
         puts "Please indicate cohort"
         cohort = gets.chomp.capitalize.to_sym                                   # 7. How can you ask for both the name and the cohort? & How will you convert it to a symbol?
         cohort.empty? ? cohort = :November : cohort                             # 7. What if one of the values is empty? Can you supply a default value?
+        puts "How old are you?"
+        age = gets.chomp
+        puts "What are your hobbies?"
+        hobbies = gets.chomp 
+        puts "What country are you from?"
+        country = gets.chomp
+        puts "What is you height?"
+        height = gets.chomp 
+ 
     end 
     # return the array of students 
      
@@ -34,7 +51,7 @@ end
 
 def print(students)
     students.each do |student|
-        puts "#{student[:name]} (#{student[:cohort]} cohort)" 
+        puts "#{student[:name]}, (#{student[:cohort]} cohort) (#{student[:age]} years old, #{student[:hobbies]} hobbies, #{student[:country]}, #{student[:height]}cm)"
     end 
 end 
 
@@ -116,6 +133,9 @@ end
 
 # 10) .strip! && .chop && delete!("/n")
 
+ 
+
+
 students = input_students 
 # nothing happens until we call these methods 
 print_header(students)
@@ -127,4 +147,3 @@ shorter_12_characters(students)
 while_print(students)
 cohort(students)
 
-    
