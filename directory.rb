@@ -105,6 +105,8 @@ def cohort(students)
         end 
 end
 
+# 10) .strip! && .chop && delete!("/n")
+
 students = input_students 
 # nothing happens until we call these methods 
 print_header
