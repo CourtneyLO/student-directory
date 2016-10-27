@@ -26,20 +26,20 @@ def input_students
     typo(students)
 end 
 
-def print_header
-    puts "The students of Villains Academy"
-    puts "--------------"
+def print_header(students)
+    puts "The students of Villains Academy" if !students.empty? 
+    puts "--------------" if !students.empty? 
 end 
 
 def print(students)
     students.each do |student|
-        puts "#{student[:name]} (#{student[:cohort]} cohort)"
+        puts "#{student[:name]} (#{student[:cohort]} cohort)" if !students.empty? 
     end 
 end 
 
 def print_footer(students)
     # 9. How can you fix it so that it used singular form when appropriate and plural form otherwise?
-    puts students.count > 1 ? "Overall, we have #{students.count} great students" : "Overall, we have #{students.count} great student"
+    puts students.count > 1 ? "Overall, we have #{students.count} great students" : "Overall, we have #{students.count} great student" if !students.empty?  
 end 
 
 # 1. How can you modify the program to print a number before the name of each student, e.g. "1. Dr. Hannibal Lecter"? 
@@ -78,6 +78,7 @@ def typo(students)
     index += 1   
     end 
     
+    if !students.empty? 
     puts "Do you wish to change anything?"
     answer = gets.chomp
     
@@ -88,6 +89,9 @@ def typo(students)
         else 
             puts "please type again"
         end 
+    else 
+        exit(0)
+    end 
 end 
 
 # 8. Change the way the users are displayed: print them grouped by cohorts.
@@ -109,7 +113,7 @@ end
 
 students = input_students 
 # nothing happens until we call these methods 
-print_header
+print_header(students)
 print(students)
 print_footer(students)
 numbering_students(students)
