@@ -115,6 +115,13 @@ end
 # 12. There are two ways you can prevent the list from printing when no input is given. 1) use if !students.empty? in header and footer or 
 #     2. use if else statment in typo that will exit if no input is given 
 
+# 6. Research how the method center() of the String class works. Use it in your code to make the output beautifully aligned.
+def center(students)
+    students.each do |student|
+    puts "#{student[:name]},".center(35) + "(#{student[:cohort]} cohort)"
+    end 
+end 
+
 
 # 8. Change the way the users are displayed: print them grouped by cohorts.
 def cohort(students)
@@ -126,6 +133,7 @@ def cohort(students)
     puts "Which cohort would you like to see: #{cohort_options}"
     selected_cohort = gets.chomp.capitalize.to_sym 
     
+    puts "Students from the #{selected_cohort} cohort:"
     students.map do |student| 
         puts "#{student[:name]}, (#{student[:cohort]} cohort)" if selected_cohort == student[:cohort] 
         end 
@@ -145,5 +153,6 @@ numbering_students(students)
 specific_letter(students)
 shorter_12_characters(students)
 while_print(students)
+center(students)
 cohort(students)
 
