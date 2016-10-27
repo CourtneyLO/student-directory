@@ -51,14 +51,23 @@ def shorter_12_characters(students)
     students.each {|student| puts "#{student[:name]} (#{student[:cohort]} cohort)" if student[:name].length < 12 }
 end 
 
+# 4. Rewrite the each() method that prints all students using while or until control flow methods
+def while_print(students)
+    index = 0 
+    while index < students.size 
+        puts "#{students[0 + index]}"
+    index += 1   
+    end 
+end 
+
 students = input_students 
 # nothing happens until we call these methods 
 print_header
-print(students)
+#print(students)
 print_footer(students)
 numbering_students(students)
 specific_letter(students)
 shorter_12_characters(students)
-
+while_print(students)
 
     
