@@ -12,17 +12,17 @@ def input_students
     puts "How old are you?"
     age = gets.chomp
     puts "What are your hobbies?"
-    hobbies = gets.chomp 
-    puts "What country are you from?"
-    country = gets.chomp
+    hobbies = gets.delete("\n")                                                 # 10. Find another method among those provided by the String class that could be used for the same purpose.
+    puts "What country are you from?"                                           #     Other methods are .strip and .chop      
+    country = gets.strip
     puts "What is you height?"
-    height = gets.chomp 
+    height = gets.chop 
     # while the name is not empty, repeat this code
     while !name.empty? do 
         # add the student hash to the array
         students << {name: name, cohort: cohort, age: age, hobbies: hobbies, country: country, height: height}
         # 9. How can you fix it so that it used singular form when appropriate and plural form otherwise?
-        puts students.index({name: name, cohort: cohort, age: age, hobbies: hobbies, country: country, height: height}) > 1 ? "Now we have #{students.count} students" : "Now we have #{students.count} student"
+        puts students.index({name: name, cohort: cohort, age: age, hobbies: hobbies, country: country, height: height}) > 0 ? "Now we have #{students.count} students" : "Now we have #{students.count} student"
         # get another name from the user 
         name = gets.chomp.capitalize
         puts "Please indicate cohort"
@@ -31,11 +31,11 @@ def input_students
         puts "How old are you?"
         age = gets.chomp
         puts "What are your hobbies?"
-        hobbies = gets.chomp 
+        hobbies = gets.delete("\n") 
         puts "What country are you from?"
-        country = gets.chomp
+        country = gets.strip
         puts "What is you height?"
-        height = gets.chomp 
+        height = gets.chop 
  
     end 
     # return the array of students 
@@ -51,7 +51,7 @@ end
 
 def print(students)
     students.each do |student|
-        puts "#{student[:name]}, (#{student[:cohort]} cohort) (#{student[:age]} years old, #{student[:hobbies]} hobbies, #{student[:country]}, #{student[:height]}cm)"
+        puts "#{student[:name]}, (#{student[:cohort]} cohort, #{student[:age]} years old, hobbies: #{student[:hobbies]}, country of birth: #{student[:country]} and height: #{student[:height]}cm)"
     end 
 end 
 
@@ -82,7 +82,7 @@ end
 def while_print(students)
     index = 0 
     while index < students.size 
-        puts "#{students[0 + index]}"
+        puts "#{students[0 + index][:name]} (#{students[0 + index][:cohort]} cohort)"
     index += 1   
     end 
 end 
@@ -128,9 +128,14 @@ def cohort(students)
     
     cohort_list = []
     students.map {|student| cohort_list << student[:cohort]}
-    cohort_options = cohort_list.uniq.join", "
-    
-    puts "Which cohort would you like to see: #{cohort_options}"
+    if cohort_list.size <= 2
+        cohort_options = cohort_list.uniq.join", "
+    else
+        last_cohorts = cohort_list.pop(2)
+        cohort_joined = cohort_list << last_cohorts.join(" or ")
+        cohort_options = cohort_joined.flatten.uniq.join", "
+    end 
+    puts "Which cohort would you like to see: #{cohort_options}?"
     selected_cohort = gets.chomp.capitalize.to_sym 
     
     puts "Students from the #{selected_cohort} cohort:"

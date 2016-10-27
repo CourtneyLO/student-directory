@@ -138,10 +138,10 @@ def center(students)
     #puts "#{"(#{student[:cohort]} cohort)".length}"
     # puts "#{student[:name].length}"
     #puts "#{30 - student[:name].length + cohort}"
-    puts "#{student[:name]}, (#{student[:cohort]} cohort)".center(10 - student[:name].length + student[:name].length)
-    
-    #center(30 - student[:name].length + student[:cohort].length )
+    puts "#{student[:name]},".center(20) + "(#{student[:cohort]} cohort)"#.center(10 - student[:name].length + student[:name].length)
     end 
+    #center(30 - student[:name].length + student[:cohort].length )
+    
 end 
     
     # + (student[:name].length)
