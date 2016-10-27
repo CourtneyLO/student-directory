@@ -12,7 +12,7 @@ def input_students
         students << {name: name, cohort: :november}
         puts "Now we have #{students.count} students"
         # get another name from the user 
-        name = gets.chomp 
+        name = gets.chomp.capitalize
     end 
     # return the array of students 
     students 
@@ -38,10 +38,21 @@ def numbering_students(students)
     students.each_with_index {|student, index| puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"}
 end 
 
+# 2. Modify your program to only print the students whose name begins with a specific letter. 
+def specific_letter(students)
+    puts "Please indicate the first letter of the name you wish to see."
+    answer = gets.chomp.capitalize
+    students.select {|student| puts "#{student[:name]} (#{student[:cohort]} cohort)" if student[:name].split("").shift == answer }
+end 
+
+
 students = input_students 
 # nothing happens until we call these methods 
 print_header
 print(students)
 print_footer(students)
 numbering_students(students)
+specific_letter(students)
+
+
     
