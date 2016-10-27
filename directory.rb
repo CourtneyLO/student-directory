@@ -7,8 +7,8 @@ def input_students
     # get the first name
     name = gets.chomp.capitalize 
     puts "Please indicate cohort"
-    cohort = gets.chomp.capitalize.to_sym
-    cohort.empty? ? cohort = :November : cohort
+    cohort = gets.chomp.capitalize.to_sym                                       # 7. How can you ask for both the name and the cohort? & How will you convert it to a symbol?
+    cohort.empty? ? cohort = :November : cohort                                 # 7. What if one of the values is empty? Can you supply a default value?
     # while the name is not empty, repeat this code
     while !name.empty? do 
         # add the student hash to the array
@@ -17,8 +17,8 @@ def input_students
         # get another name from the user 
         name = gets.chomp.capitalize
         puts "Please indicate cohort"
-        cohort = gets.chomp.capitalize.to_sym
-        cohort.empty? ? cohort = :November : cohort
+        cohort = gets.chomp.capitalize.to_sym                                   # 7. How can you ask for both the name and the cohort? & How will you convert it to a symbol?
+        cohort.empty? ? cohort = :November : cohort                             # 7. What if one of the values is empty? Can you supply a default value?
     end 
     # return the array of students 
      
@@ -67,6 +67,7 @@ def while_print(students)
     end 
 end 
 
+# 7. What if the user makes a typo?
 def typo(students)
     
     index = 0 
@@ -87,6 +88,22 @@ def typo(students)
         end 
 end 
 
+# 8. Change the way the users are displayed: print them grouped by cohorts.
+def cohort(students)
+    
+    cohort_list = []
+    students.map {|student| cohort_list << student[:cohort]}
+    cohort_options = cohort_list.uniq.join", "
+    
+    puts "Which cohort would you like to see: #{cohort_options}"
+    selected_cohort = gets.chomp.capitalize.to_sym 
+    
+    students.map do |student| 
+        puts "#{student[:name]}, (#{student[:cohort]} cohort)" if selected_cohort == student[:cohort] 
+        end 
+end
+
+
 students = input_students 
 # nothing happens until we call these methods 
 print_header
@@ -96,5 +113,6 @@ numbering_students(students)
 specific_letter(students)
 shorter_12_characters(students)
 while_print(students)
+cohort(students)
 
     
