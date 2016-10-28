@@ -55,6 +55,7 @@ def input_students
     end
     
     # return array of students 
+    # 4. Can you fix this and implement feedback messages for the user?
     puts @students.count > 1 ? "#{@students.count} students have been added to the student list" : "#{@students.count} student has been added to the student list"
     @students
     
@@ -79,25 +80,24 @@ end
 
 def save_students
     # open the file for writing 
-    file = File.open("students.csv", 'w')
+    puts "In which file do you wish to save the student list?"                  # 5. Make the script more flexible by asking for the filename if the user chooses these menu items.
+    filename = STDIN.gets.chomp
+    file = File.open(filename, 'w')
     # iterate over the array of students
-    @students.each do |student|
-        student_data = [student[:name], student[:cohort]]
-        csv_line = student_data.join(",")
-        file.puts csv_line
-    end 
-    puts @students.count > 1 ? "#{@students.count} students have been saved to the student list" : "#{@students.count} student has been saved to the student list" 
-    file.close
+    # 6. Read the documentation of the File class to find out how to use a code block (do...end) to access a file, so that we don't have to close it explicitly.
+    @students.each {|student| student_data = [student[:name], student[:cohort]]; csv_line = student_data.join(","); file.puts csv_line}
+    # 4. Can you fix this and implement feedback messages for the user?
+    puts @students.count > 1 ? "#{@students.count} students have been saved to #{filename}" : "#{@students.count} student has been saved to #{filename}" 
 end 
 
 def load_students(filename = "students.csv")
-    file = File.open("students.csv", 'r')
-    file.readlines.each do |line|
-    name, cohort = line.chomp.split(',')
-        @students << {name: name, cohort: cohort.to_sym}
-    end 
-    puts @students.count > 1 ? "#{@students.count} students have been loaded" : "#{@students.count} student has been loaded"
-    file.close
+    puts "Which file do you wish to load?"                                      # 5. Make the script more flexible by asking for the filename if the user chooses these menu items.
+    filename = STDIN.gets.chomp
+    file = File.open(filename, 'r')
+    # 6. Read the documentation of the File class to find out how to use a code block (do...end) to access a file, so that we don't have to close it explicitly.
+    file.readlines.each {|line| name, cohort = line.chomp.split(","); @students << {name: name, cohort: cohort.to_sym}}
+    # 4. Can you fix this and implement feedback messages for the user?
+    puts @students.count > 1 ? "#{@students.count} students have been loaded" : "#{@students.count} student has been loaded" 
 end 
 
 def try_load_students
