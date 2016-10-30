@@ -7,8 +7,8 @@ def input_students
     # get the first name
     name = gets.chomp.split(" ").map(&:capitalize).join(" ") 
     puts "Please indicate cohort"
-    cohort = gets.chomp.capitalize.to_sym                                       # 7. How can you ask for both the name and the cohort? & How will you convert it to a symbol?
-    cohort.empty? ? cohort = :November : cohort                                 # 7. What if one of the values is empty? Can you supply a default value?
+    cohort = gets.chomp.capitalize.to_sym                                   # 7. How can you ask for both the name and the cohort? & How will you convert it to a symbol?
+    cohort = :November if cohort.empty?                                     # 7. What if one of the values is empty? Can you supply a default value? => only by using an if statement
     puts "How old are you?"
     age = gets.chomp
     puts "What are your hobbies?"
