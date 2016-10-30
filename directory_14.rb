@@ -99,7 +99,9 @@ def load_students(filename = "students.csv")
         name = line.split(",").first
         students_names << name 
     end 
+    puts "Loaded #{students_names.count} students from #{filename}"
     return student_list(students_names)
+    
     
 
 end 
@@ -109,7 +111,6 @@ def load_file
     return if filename.nil? 
     if File.exist?(filename)
         load_students(filename)
-        puts "Loaded #{students_names.count} students from #{filename}"
     else 
         puts "Sorry, #{filename} doesn't exist."
         exit 
