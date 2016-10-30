@@ -58,12 +58,11 @@ def student_list(students_names)
 end 
 
 def print_header 
-    puts "The students of the Villians Academy"
+    puts "The Students of the Villians Academy"
     puts "-------------"
 end 
 
 def print_students_list(students)
-    puts @students.count > 1 ? "Students:" : "Student:"
     @students.each do |student|
         puts "#{student[:name]}, (#{student[:cohort]} cohort)"
     end 
@@ -77,10 +76,12 @@ end
 def save_students
     puts "In which file do you wish to save the student list?"                  # 5. Make the script more flexible by asking for the filename if the user chooses these menu items.
     filename = STDIN.gets.chomp
-    file = File.open(filename, 'w')
-    # 6. Read the documentation of the File class to find out how to use a code block (do...end) to access a file, so that we don't have to close it explicitly.
-    @students.each {|student| student_data = [student[:name], student[:cohort]]; csv_line = student_data.join(","); file.puts csv_line}
-    # 4. Can you fix this and implement feedback messages for the user?
+    CSV.open(filename, 'w') do |student_data|
+        #student_data << [:name, :cohort]
+        @students.each do |student| 
+        student_data << [student[:name], student[:cohort]]
+    end 
+    end 
     puts @students.count > 1 ? "Saved #{@students.count} students to #{filename}" : "Saved #{@students.count} student to #{filename}" 
 end 
 
@@ -94,15 +95,12 @@ end
 
 def load_students(filename = "students.csv")
     students_names = []
-    file = File.open("students.csv", 'r')
-    file.each_line do |line| 
-        name = line.split(",").first
+    CSV.foreach(filename) do |line|
+        name = line.first
         students_names << name 
-    end 
+    end
     puts "Loaded #{students_names.count} students from #{filename}"
     return student_list(students_names)
-    
-    
 
 end 
 
