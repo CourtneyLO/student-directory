@@ -1,3 +1,4 @@
+require 'csv'
 @students = []
 
 def print_menu
@@ -5,7 +6,7 @@ def print_menu
     puts "2. Show the students"
     puts "3. Save students"
     puts "4. Load students"
-    puts "9. Exit" # 9 because we will be adding more items 
+    puts "9. Exit"
 end 
 
 def show_students
@@ -23,42 +24,37 @@ end
 
 def process(selection)
     case selection
-        when "1"
-            input_students
-        when "2"
-            show_students
-        when "3"
-            save_students
-        when "4"
-            load_students
-        when "9"
-            exit # this will cause the program to terminate 
+        when "1" then input_students
+        when "2" then show_students
+        when "3" then save_students
+        when "4" then file_choice                              
+        when "9" then exit
         else 
             puts "I don't know what you mean, try again"
     end 
 end 
 
 def input_students
+    students_names = []
     puts "Please enter the name of the students"
     puts "To finish, just hit return twice"
-    # create an empty array 
-    @students = []
-    # get the first name 
+    
     name = STDIN.gets.chomp.capitalize
-    # while name is not empty, repeat this code
     while !name.empty? do
-    # add the students has to the array
-    @students << {name: name, cohort: :november}
-    puts @students.index({name: name, cohort: :november}) > 0 ? "Now we have #{@students.count} students" : "Now we have #{@students.count} student"
-    # get another name from the user 
+    students_names << name
+    puts students_names.count > 0 ? "Now we have #{students_names.count} students" : "Now we have #{students_names.count} student"
     name = STDIN.gets.chomp.capitalize 
     end
     
-    # return array of students 
-    # 4. Can you fix this and implement feedback messages for the user?
-    puts @students.count > 1 ? "#{@students.count} students have been added to the student list" : "#{@students.count} student has been added to the student list"
-    @students
+    return student_list(students_names)
     
+end 
+
+def student_list(students_names)
+    
+    students_names.each {|name| @students << {name: name, cohort: :november}}
+    
+    @students
 end 
 
 def print_header 
@@ -79,40 +75,52 @@ end
 
 
 def save_students
-    # open the file for writing 
     puts "In which file do you wish to save the student list?"                  # 5. Make the script more flexible by asking for the filename if the user chooses these menu items.
     filename = STDIN.gets.chomp
     file = File.open(filename, 'w')
-    # iterate over the array of students
     # 6. Read the documentation of the File class to find out how to use a code block (do...end) to access a file, so that we don't have to close it explicitly.
     @students.each {|student| student_data = [student[:name], student[:cohort]]; csv_line = student_data.join(","); file.puts csv_line}
     # 4. Can you fix this and implement feedback messages for the user?
-    puts @students.count > 1 ? "#{@students.count} students have been saved to #{filename}" : "#{@students.count} student has been saved to #{filename}" 
+    puts @students.count > 1 ? "Saved #{@students.count} students to #{filename}" : "Saved #{@students.count} student to #{filename}" 
 end 
 
-def load_students(filename = "students.csv")
+def file_choice 
     puts "Which file do you wish to load?"                                      # 5. Make the script more flexible by asking for the filename if the user chooses these menu items.
     filename = STDIN.gets.chomp
-    file = File.open(filename, 'r')
-    # 6. Read the documentation of the File class to find out how to use a code block (do...end) to access a file, so that we don't have to close it explicitly.
-    file.readlines.each {|line| name, cohort = line.chomp.split(","); @students << {name: name, cohort: cohort.to_sym}}
-    # 4. Can you fix this and implement feedback messages for the user?
-    puts @students.count > 1 ? "#{@students.count} students have been loaded" : "#{@students.count} student has been loaded" 
+    
+    load_students(filename) 
 end 
 
-def try_load_students
-    filename = ARGV.first # first argument from the command line 
-    return if filename.nil? # get out of the method if it isn't given 
+
+def load_students(filename = "students.csv")
+    students_names = []
+    file = File.open("students.csv", 'r')
+    file.each_line do |line| 
+        name = line.split(",").first
+        students_names << name 
+    end 
+    return student_list(students_names)
+    
+
+end 
+
+def load_file 
+    filename = ARGV.first || "students.csv" 
+    return if filename.nil? 
     if File.exist?(filename)
         load_students(filename)
-        puts "Loaded #{@students.count} from #{filename}"
+        puts "Loaded #{students_names.count} students from #{filename}"
     else 
         puts "Sorry, #{filename} doesn't exist."
-        exit # quit the program 
+        exit 
     end 
 end 
 
-try_load_students
+# 8. Write a short program that reads its own source code (search StackOverflow to find out how to get the name of the currently executed file) and prints it on the screen.
+#Answer to 8. => puts File.read($0) 
+
+load_file 
 interactive_menu
+
         
         
