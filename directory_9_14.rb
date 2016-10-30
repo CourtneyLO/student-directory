@@ -42,7 +42,6 @@ def input_students
     puts "Please enter the name of the students"
     puts "To finish, just hit return twice"
     # create an empty array 
-    @students = []
     # get the first name 
     name = STDIN.gets.chomp.capitalize
     # while name is not empty, repeat this code
